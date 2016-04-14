@@ -4,13 +4,22 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptor;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.com.caelum.livraria.interceptador.LogInterceptador;
 import br.com.caelum.livraria.modelo.Autor;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+//@Interceptors({LogInterceptador.class})
 public class AutorDao {
 	
 	@PostConstruct
@@ -23,7 +32,7 @@ public class AutorDao {
 	@PersistenceContext
 	private EntityManager manager;
 
-	
+	@TransactionAttribute(TransactionAttributeType.MANDATORY)
 	public void salva(Autor autor){
 		System.out.println("[INFO] Salvando o Autor " + autor.getNome());
 		

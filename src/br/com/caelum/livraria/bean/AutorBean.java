@@ -10,22 +10,28 @@ import br.com.caelum.livraria.modelo.Autor;
 
 @Model
 public class AutorBean {
+	
 	@Inject
 	private Autor autor;// = new Autor();
 	
 	@Inject
-	private AutorDao dao;// = new AutorDao();
+	private AutorService service;
+	
+	//@Inject
+	//private AutorDao dao;// = new AutorDao();
 	
 	public Autor getAutor() {
 		return autor;
 	}
 	
 	public void cadastra() {
-		this.dao.salva(autor);
+		//this.dao.salva(autor);
+		this.service.adiciona(autor);
 		this.autor = new Autor();
 	}
 	
 	public List<Autor> getAutores() {
-		return this.dao.todosAutores();
+		//return this.dao.todosAutores();
+		return this.service.todosAutores();
 	}
 }
